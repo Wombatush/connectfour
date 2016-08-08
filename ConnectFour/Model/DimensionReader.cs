@@ -1,9 +1,8 @@
-﻿using System.Linq;
-
-using ConnectFour.Wrappers;
-
-namespace ConnectFour.Model
+﻿namespace ConnectFour.Model
 {
+    using System.Linq;
+    using ConnectFour.Wrappers;
+
     internal sealed class DimensionReader : IDimensionReader
     {
         private readonly IInputService inputService;

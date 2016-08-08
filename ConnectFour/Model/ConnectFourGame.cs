@@ -1,9 +1,8 @@
-﻿using System;
-
-using ConnectFour.Wrappers;
-
-namespace ConnectFour.Model
+﻿namespace ConnectFour.Model
 {
+    using System;
+    using ConnectFour.Wrappers;
+
     internal sealed class ConnectFourGame
     {
         private readonly IOutputService outputService;

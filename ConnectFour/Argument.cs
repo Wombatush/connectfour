@@ -1,7 +1,7 @@
-using System;
-
 namespace ConnectFour
 {
+    using System;
+
     internal static class Argument
     {
         public static void IsNotNull<T>(T value, string paramName)

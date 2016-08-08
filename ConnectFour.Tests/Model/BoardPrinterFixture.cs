@@ -1,17 +1,13 @@
-﻿using System;
-using System.Text;
-
-using ConnectFour.Model;
-using ConnectFour.Wrappers;
-
-using FluentAssertions;
-
-using Moq;
-
-using NUnit.Framework;
-
-namespace ConnectFour.Tests.Model
+﻿namespace ConnectFour.Tests.Model
 {
+    using System;
+    using System.Text;
+    using ConnectFour.Model;
+    using ConnectFour.Wrappers;
+    using FluentAssertions;
+    using Moq;
+    using NUnit.Framework;
+
     [TestFixture]
     internal sealed class BoardPrinterFixture
     {

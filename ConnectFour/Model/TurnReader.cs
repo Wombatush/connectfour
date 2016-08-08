@@ -1,7 +1,7 @@
-using ConnectFour.Wrappers;
-
 namespace ConnectFour.Model
 {
+    using ConnectFour.Wrappers;
+
     internal sealed class TurnReader : ITurnReader
     {
         private readonly IInputService inputService;

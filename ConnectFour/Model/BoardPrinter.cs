@@ -1,7 +1,7 @@
-﻿using ConnectFour.Wrappers;
-
-namespace ConnectFour.Model
+﻿namespace ConnectFour.Model
 {
+    using ConnectFour.Wrappers;
+
     internal sealed class BoardPrinter : IBoardPrinter
     {
         private readonly IOutputService outputService;

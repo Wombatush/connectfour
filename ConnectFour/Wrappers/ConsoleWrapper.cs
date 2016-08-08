@@ -1,7 +1,7 @@
-using System;
-
 namespace ConnectFour.Wrappers
 {
+    using System;
+
     internal sealed class ConsoleWrapper : IInputService, IOutputService
     {
         public ConsoleWrapper()

@@ -1,11 +1,9 @@
-﻿using System;
-
-using FluentAssertions;
-
-using NUnit.Framework;
-
-namespace ConnectFour.Tests
+﻿namespace ConnectFour.Tests
 {
+    using System;
+    using FluentAssertions;
+    using NUnit.Framework;
+
     [TestFixture]
     internal sealed class ArgumentFixture
     {

@@ -1,13 +1,10 @@
-﻿using System;
-
-using ConnectFour.Model;
-
-using FluentAssertions;
-
-using NUnit.Framework;
-
-namespace ConnectFour.Tests.Model
+﻿namespace ConnectFour.Tests.Model
 {
+    using System;
+    using ConnectFour.Model;
+    using FluentAssertions;
+    using NUnit.Framework;
+
     [TestFixture]
     internal sealed class PlayerFixture
     {

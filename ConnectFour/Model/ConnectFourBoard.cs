@@ -1,8 +1,8 @@
-using System.Collections.Generic;
-using System.Linq;
-
 namespace ConnectFour.Model
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     internal sealed class ConnectFourBoard : IConnectFourBoard
     {
         public const int MinColumns = 4;

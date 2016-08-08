@@ -1,8 +1,8 @@
-﻿using ConnectFour.Model;
-using ConnectFour.Wrappers;
-
-namespace ConnectFour
+﻿namespace ConnectFour
 {
+    using ConnectFour.Model;
+    using ConnectFour.Wrappers;
+
     class Program
     {
         static void Main(string[] args)
