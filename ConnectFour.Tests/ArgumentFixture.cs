@@ -64,6 +64,39 @@
         }
 
         [Test]
+        public void ShouldIsLessThanOrEqualToNotThrowWhenValueIsLessThanComparand()
+        {
+            // When
+            Action action = () => Argument.IsLessThanOrEqualTo(2, 3, "irrelevant");
+
+            // Then
+            action.ShouldNotThrow();
+        }
+
+        [Test]
+        public void ShouldIsLessThanOrEqualToNotThrowWhenValueIsEqualToComparand()
+        {
+            // When
+            Action action = () => Argument.IsLessThanOrEqualTo(3, 3, "irrelevant");
+
+            // Then
+            action.ShouldNotThrow();
+        }
+
+        [Test]
+        public void ShouldIsLessThanOrEqualToThrowWhenValueIsGreaterThanComparand()
+        {
+            // Given
+            const string paramName = "tell me who you are";
+
+            // When
+            Action action = () => Argument.IsLessThanOrEqualTo(4, 3, paramName);
+
+            // Then
+            action.ShouldThrow<ArgumentOutOfRangeException>().And.ParamName.Should().Be(paramName);
+        }
+
+        [Test]
         public void ShouldIsLessThanNotThrowWhenValueIsLessThanComparand()
         {
             // When

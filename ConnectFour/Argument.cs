@@ -22,6 +22,15 @@ namespace ConnectFour
             }
         }
 
+        public static void IsLessThanOrEqualTo<T>(T value, T comparand, string paramName)
+            where T : IComparable<T>
+        {
+            if (value.CompareTo(comparand) > 0)
+            {
+                throw new ArgumentOutOfRangeException(paramName, value, $"Value has to be less than or equal to {comparand}");
+            }
+        }
+
         public static void IsLessThan<T>(T value, T comparand, string paramName)
             where T : IComparable<T>
         {

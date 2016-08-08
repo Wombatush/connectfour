@@ -10,16 +10,21 @@ namespace ConnectFour.Model
         public const int MinRows = 4;
         public const int MaxRows = 10;
 
-        private const int MaxCountToWin = 4;
+        internal const int CountToWin = 4;
 
-        private Player?[] board = new Player?[0];
+        private Player?[] board = new Player?[MinRows * MinColumns];
 
-        public int Rows { get; private set; }
+        public int Rows { get; private set; } = MinRows;
 
-        public int Columns { get; private set; }
-        
+        public int Columns { get; private set; } = MinColumns;
+
         public void Reset(int columnCount, int rowCount)
         {
+            Argument.IsGreaterThanOrEqualTo(columnCount, MinColumns, nameof(columnCount));
+            Argument.IsGreaterThanOrEqualTo(rowCount, MinRows, nameof(rowCount));
+            Argument.IsLessThanOrEqualTo(columnCount, MaxColumns, nameof(columnCount));
+            Argument.IsLessThanOrEqualTo(rowCount, MaxRows, nameof(rowCount));
+
             Columns = columnCount;
             Rows = rowCount;
             board = new Player?[Columns * Rows];
@@ -27,6 +32,9 @@ namespace ConnectFour.Model
 
         public TurnResult Turn(Player player, int columnIdx)
         {
+            Argument.IsGreaterThanOrEqualTo(columnIdx, 0, nameof(columnIdx));
+            Argument.IsLessThan(columnIdx, Columns, nameof(columnIdx));
+
             var rowIdx = Rows;
 
             while (--rowIdx >= 0)
@@ -57,16 +65,26 @@ namespace ConnectFour.Model
             return TurnResult.Invalid;
         }
 
+        public Player? GetCell(int columnIdx, int rowIdx)
+        {
+            Argument.IsGreaterThanOrEqualTo(columnIdx, 0, nameof(columnIdx));
+            Argument.IsGreaterThanOrEqualTo(rowIdx, 0, nameof(rowIdx));
+            Argument.IsLessThan(columnIdx, Columns, nameof(columnIdx));
+            Argument.IsLessThan(rowIdx, Rows, nameof(rowIdx));
+
+            return board[GetIndex(columnIdx, rowIdx)];
+        }
+
         private bool IsWinByColumn(Player player, int columnIdx)
         {
-            var winStr = new string(player.PlayerChar, MaxCountToWin);
+            var winStr = new string(player.PlayerChar, CountToWin);
             var columnStr = new string(Enumerable.Range(0, Rows).Select(rowIdx => this.GetCellChar(columnIdx, rowIdx)).ToArray());
             return columnStr.Contains(winStr);
         }
 
         private bool IsWinByRow(Player player, int rowIdx)
         {
-            var winStr = new string(player.PlayerChar, MaxCountToWin);
+            var winStr = new string(player.PlayerChar, CountToWin);
             var rowStr = new string(Enumerable.Range(0, Columns).Select(columnIdx => this.GetCellChar(columnIdx, rowIdx)).ToArray());
             return rowStr.Contains(winStr);
         }
@@ -105,91 +123,19 @@ namespace ConnectFour.Model
                 listTwo.Insert(0, this.GetCellChar(localColumnIdx, localRowIdx));
             }
 
-            var winStr = new string(player.PlayerChar, MaxCountToWin);
+            var winStr = new string(player.PlayerChar, CountToWin);
             var rowStrOne = new string(listOne.ToArray());
             var rowStrTwo = new string(listTwo.ToArray());
             return rowStrOne.Contains(winStr) || rowStrTwo.Contains(winStr);
         }
 
-        public Player? GetCell(int columnIdx, int rowIdx)
+        private void SetCell(int columnIdx, int rowIdx, Player player)
         {
-            Argument.IsGreaterThanOrEqualTo(columnIdx, 0, nameof(columnIdx));
-            Argument.IsGreaterThanOrEqualTo(rowIdx, 0, nameof(rowIdx));
-            Argument.IsLessThan(columnIdx, Columns, nameof(columnIdx));
-            Argument.IsLessThan(rowIdx, Rows, nameof(rowIdx));
-
-            return board[GetIndex(columnIdx, rowIdx)];
-        }
-
-        private void SetCell(int column, int row, Player player)
-        {
-            Argument.IsGreaterThanOrEqualTo(column, 0, nameof(column));
-            Argument.IsGreaterThanOrEqualTo(row, 0, nameof(row));
-            Argument.IsLessThan(column, Columns, nameof(column));
-            Argument.IsLessThan(row, Rows, nameof(row));
-
-            board[GetIndex(column, row)] = player;
-        }
-
-        private bool AreAnyFourConnected()
-        {
-            // by row
-            for (var row = 0; row < Rows; ++row)
-            {
-                var lastPlayer = default(Player?);
-                var lastCount = 0;
-                for (var column = 0; column < Columns; ++column)
-                {
-                    var player = GetCell(column, row);
-                    if (lastPlayer != null && lastPlayer.Value.PlayerChar == player?.PlayerChar)
-                    {
-                        if (++lastCount >= MaxCountToWin)
-                        {
-                            return true;
-                        }
-
-                        continue;
-                    }
-
-                    lastPlayer = player;
-                    lastCount = 1;
-                }
-
-            }
-
-            // by column
-            for (var column = 0; column < Columns; ++column)
-            {
-                var lastPlayer = default(Player?);
-                var lastCount = 0;
-                for (var row = 0; row < Rows; ++row)
-                {
-                    var player = GetCell(column, row);
-                    if (lastPlayer != null && lastPlayer.Value.PlayerChar == player?.PlayerChar)
-                    {
-                        if (++lastCount >= MaxCountToWin)
-                        {
-                            return true;
-                        }
-
-                        continue;
-                    }
-
-                    lastPlayer = player;
-                    lastCount = 1;
-                }
-            }
-
-            return false;
+            board[GetIndex(columnIdx, rowIdx)] = player;
         }
 
         private int GetIndex(int column, int row)
         {
-            Argument.IsGreaterThanOrEqualTo(column, 0, nameof(column));
-            Argument.IsGreaterThanOrEqualTo(row, 0, nameof(row));
-            Argument.IsLessThan(column, Columns, nameof(column));
-            Argument.IsLessThan(row, Rows, nameof(row));
-
             return row * Columns + column;
         }
     }
