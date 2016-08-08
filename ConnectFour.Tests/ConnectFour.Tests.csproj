@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="ArgumentFixture.cs" />
     <Compile Include="Model\BoardPrinterFixture.cs" />
+    <Compile Include="Model\ConnectFourBoardExtensionsFixture.cs" />
     <Compile Include="Model\PlayerFixture.cs" />
     <Compile Include="Model\DimensionReaderFixture.cs" />
     <Compile Include="Model\TurnReaderFixture.cs" />
